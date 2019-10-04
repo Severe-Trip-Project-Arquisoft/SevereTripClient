@@ -1,1 +1,1 @@
-tripAdvisor
+tripAdvisorClientAPI
