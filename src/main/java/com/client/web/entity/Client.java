@@ -4,20 +4,19 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Date;
 
-@Document(collection = "Client")
+@Document(collection = "client")
 @Data
 
-
-public class Client implements Serializable {
+public class Client{
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank
@@ -31,7 +30,8 @@ public class Client implements Serializable {
     @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters")
     private String secondName;
 
-    private String updateDate;
+    @NotBlank
+    private String localAirport;
 
     @NotBlank
     private String email;
@@ -40,19 +40,31 @@ public class Client implements Serializable {
     private  String address;
 
     @NotBlank
+    private  String city;
+
+    @NotBlank
+    private  String stateProvinceRegion;
+
+    @NotBlank
+    private  String postalCode;
+
+    @NotBlank
     private  String country;
 
     @NotBlank
     private  String cellphone;
 
-    public Client(long id, @NotBlank String clientId, @NotBlank @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotBlank @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, String updateDate, @NotBlank String email, @NotBlank String address, @NotBlank String country, @NotBlank String cellphone) {
+    public Client(long id, @NotBlank String clientId, @NotBlank @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotBlank @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @NotBlank String localAirport, @NotBlank String email, @NotBlank String address, @NotBlank String city, @NotBlank String stateProvinceRegion, @NotBlank String postalCode, @NotBlank String country, @NotBlank String cellphone) {
         this.id = id;
         this.clientId = clientId;
         this.firstName = firstName;
         this.secondName = secondName;
-        this.updateDate = updateDate;
+        this.localAirport = localAirport;
         this.email = email;
         this.address = address;
+        this.city = city;
+        this.stateProvinceRegion = stateProvinceRegion;
+        this.postalCode = postalCode;
         this.country = country;
         this.cellphone = cellphone;
     }
@@ -92,12 +104,12 @@ public class Client implements Serializable {
         this.secondName = secondName;
     }
 
-    public String getUpdateDate() {
-        return updateDate;
+    public String getLocalAirport() {
+        return localAirport;
     }
 
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
+    public void setLocalAirport(String localAirport) {
+        this.localAirport = localAirport;
     }
 
     public String getEmail() {
@@ -116,6 +128,30 @@ public class Client implements Serializable {
         this.address = address;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStateProvinceRegion() {
+        return stateProvinceRegion;
+    }
+
+    public void setStateProvinceRegion(String stateProvinceRegion) {
+        this.stateProvinceRegion = stateProvinceRegion;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -131,4 +167,23 @@ public class Client implements Serializable {
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", clientId='" + clientId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", localAirport='" + localAirport + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", stateProvinceRegion='" + stateProvinceRegion + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
+                ", cellphone='" + cellphone + '\'' +
+                '}';
+    }
+
 }
