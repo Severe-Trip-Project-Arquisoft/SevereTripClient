@@ -44,7 +44,7 @@ public class ClientController {
     @PutMapping(path ="/insertClient", consumes = "application/json")
     public ResponseEntity<Long> updateClient(@RequestBody Client client) {
         Client cli = clientService.getClient(client.getClientId() );
-        if (!cli.equals(null) && cli.getId()== client.getId()){
+        if (cli!=null && cli.getId()== client.getId()){
             clientService.updateClient(client);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }else{
