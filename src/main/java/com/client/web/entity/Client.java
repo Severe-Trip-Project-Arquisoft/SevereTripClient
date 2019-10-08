@@ -69,9 +69,6 @@ public class Client{
         this.cellphone = cellphone;
     }
 
-    public Client() {
-    }
-
     public long getId() {
         return id;
     }
@@ -167,23 +164,4 @@ public class Client{
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", clientId='" + clientId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", localAirport='" + localAirport + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", stateProvinceRegion='" + stateProvinceRegion + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", country='" + country + '\'' +
-                ", cellphone='" + cellphone + '\'' +
-                '}';
-    }
-
 }
