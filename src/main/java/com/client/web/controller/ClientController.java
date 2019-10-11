@@ -3,13 +3,15 @@ package com.client.web.controller;
 import com.client.web.entity.Client;
 import com.client.web.repository.ClientRepository;
 import com.client.web.service.ClientService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@Api(value="Clients Management System", description="Operations pertaining to customer in Clients Management System")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/clients")
@@ -25,6 +27,7 @@ public class ClientController {
         return "CLIENTS AVAILABLE";
     }
 
+    @ApiOperation(value = "View a client")
     @GetMapping("/client/{id}")
     public ResponseEntity<Client> getClient(@PathVariable(value = "id") String id){
         Client cli = clientService.getClient(id);
