@@ -1,13 +1,10 @@
 package com.client.web.entity;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Document(collection = "client")
@@ -16,8 +13,7 @@ import javax.validation.constraints.Size;
 public class Client{
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
     @NotBlank
     private String clientId;
@@ -54,7 +50,7 @@ public class Client{
     @NotBlank
     private  String cellphone;
 
-    public Client(long id, @NotBlank String clientId, @NotBlank @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotBlank @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @NotBlank String localAirport, @NotBlank String email, @NotBlank String address, @NotBlank String city, @NotBlank String stateProvinceRegion, @NotBlank String postalCode, @NotBlank String country, @NotBlank String cellphone) {
+    public Client(@NotNull String id, @NotBlank String clientId, @NotBlank @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotBlank @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @NotBlank String localAirport, @NotBlank String email, @NotBlank String address, @NotBlank String city, @NotBlank String stateProvinceRegion, @NotBlank String postalCode, @NotBlank String country, @NotBlank String cellphone) {
         this.id = id;
         this.clientId = clientId;
         this.firstName = firstName;
@@ -69,11 +65,11 @@ public class Client{
         this.cellphone = cellphone;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -163,5 +159,23 @@ public class Client{
 
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id='" + id + '\'' +
+                ", clientId='" + clientId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", localAirport='" + localAirport + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", stateProvinceRegion='" + stateProvinceRegion + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
+                ", cellphone='" + cellphone + '\'' +
+                '}';
     }
 }

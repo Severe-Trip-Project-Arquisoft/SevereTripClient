@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(value="Clients Management System", description="Operations pertaining to customer in Clients Management System")
 @RestController
 @RequiredArgsConstructor
@@ -19,12 +21,16 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
-    private ClientRepository clientRepository;
 
     @GetMapping
     public String msg(){
 
         return "CLIENTS AVAILABLE";
+    }
+
+    @GetMapping("/allClients")
+    public List<Client> getAllClients(){
+        return clientService.getAllClients();
     }
 
     @ApiOperation(value = "View a client")
@@ -39,7 +45,7 @@ public class ClientController {
     }
 
     @PostMapping(path ="/insertClient", consumes = "application/json")
-    public ResponseEntity<Long> createClient(@RequestBody Client client) {
+    public ResponseEntity<String> createClient(@RequestBody Client client) {
             Client cli = clientService.getClient(client.getClientId());
             if (cli==null){
                 clientService.createClient(client);
