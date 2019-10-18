@@ -28,12 +28,13 @@ public class ClientController {
         return "CLIENTS AVAILABLE";
     }
 
+    @ApiOperation(value = "See all clients",response = List.class)
     @GetMapping("/allClients")
     public List<Client> getAllClients(){
         return clientService.getAllClients();
     }
 
-    @ApiOperation(value = "View a client")
+    @ApiOperation(value = "Get client by internal Id",response = Client.class)
     @GetMapping("/client/{id}")
     public ResponseEntity<Client> getClient(@PathVariable(value = "id") String id){
         Client cli = clientService.getClient(id);
@@ -44,17 +45,19 @@ public class ClientController {
         }
     }
 
+    @ApiOperation(value = "Insert client",response = String.class)
     @PostMapping(path ="/insertClient", consumes = "application/json")
     public ResponseEntity<String> createClient(@RequestBody Client client) {
-            Client cli = clientService.getClient(client.getClientId());
+            Client cli = clientService.getClientByCustId(client.getClientId());
             if (cli==null){
-                clientService.createClient(client);
-                return new ResponseEntity<>(HttpStatus.CREATED);
+                Client created = clientService.createClient(client);
+                return new ResponseEntity<>(created.getId(),HttpStatus.CREATED);
             }else{
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
     }
 
+    @ApiOperation(value = "Update client by internal Id")
     @PutMapping(path = "/updateClient/{id}")
     public void updateClient(@RequestBody Client client, @PathVariable(value = "id") String id){
         Client cli = clientService.getClient(id);
@@ -66,6 +69,7 @@ public class ClientController {
         }
     }
 
+    @ApiOperation(value = "Delete client by internal Id")
     @DeleteMapping(path = "/deleteClient/{id}")
     public void deleteClient(@PathVariable(value = "id") String id){
         Client cli = clientService.getClient(id);

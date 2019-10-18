@@ -21,6 +21,11 @@ public class ClientService {
 
     public Client getClient(String clientId){
 
+        return clientRepository.getById(clientId);
+    }
+
+    public Client getClientByCustId(String clientId){
+
         return clientRepository.findFirstByClientId(clientId);
     }
 
