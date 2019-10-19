@@ -7,4 +7,5 @@ public interface ClientRepository extends MongoRepository<Client, String> {
 
     Client findFirstByClientId(String clientId);
     Client getById(String id);
+    Boolean existsByClientId(String clientId);
 }

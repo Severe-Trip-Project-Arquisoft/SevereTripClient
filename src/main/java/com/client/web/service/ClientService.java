@@ -44,4 +44,7 @@ public class ClientService {
         clientRepository.delete(delClient);
     }
 
+    public boolean isAvailable(String userName){
+        return !clientRepository.existsByClientId(userName);
+    }
 }

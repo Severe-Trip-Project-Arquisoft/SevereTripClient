@@ -35,14 +35,31 @@ public class ClientController {
     }
 
     @ApiOperation(value = "Get client by internal Id",response = Client.class)
-    @GetMapping("/client/{id}")
-    public ResponseEntity<Client> getClient(@PathVariable(value = "id") String id){
-        Client cli = clientService.getClient(id);
+    @GetMapping("/client/{generatedId}")
+    public ResponseEntity<Client> getClient(@PathVariable(value = "generatedId") String generatedId){
+        Client cli = clientService.getClient(generatedId);
         if (cli!= null){
             return ResponseEntity.ok(cli);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @ApiOperation(value = "Get client by username",response = Client.class)
+    @GetMapping("/client/username/{id}")
+    public ResponseEntity<Client> getClientByClientId(@PathVariable(value = "id") String id){
+        Client cli = clientService.getClientByCustId(id);
+        if (cli!= null){
+            return ResponseEntity.ok(cli);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @ApiOperation(value = "Get availability of Username",response = Boolean.class)
+    @GetMapping("/client/available/{userName}")
+    public ResponseEntity<Boolean> checkAvailability(@PathVariable(value = "userName") String userName){
+        return ResponseEntity.ok(clientService.isAvailable(userName));
     }
 
     @ApiOperation(value = "Insert client",response = String.class)
@@ -53,7 +70,7 @@ public class ClientController {
                 Client created = clientService.createClient(client);
                 return new ResponseEntity<>(created.getId(),HttpStatus.CREATED);
             }else{
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Username not Available",HttpStatus.BAD_REQUEST);
             }
     }
 
