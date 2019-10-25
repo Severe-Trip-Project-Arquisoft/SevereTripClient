@@ -42,7 +42,7 @@ public class ClientController {
         if (cli!= null){
             return ResponseEntity.ok(cli);
         }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
@@ -53,7 +53,7 @@ public class ClientController {
         if (cli!= null){
             return ResponseEntity.ok(cli);
         }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
@@ -83,7 +83,7 @@ public class ClientController {
             clientService.deleteClient(cli);
             clientService.createClient(client);
         }else{
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
@@ -94,7 +94,7 @@ public class ClientController {
         if (cli!= null){
             clientService.deleteClient(cli);
         }else{
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 }

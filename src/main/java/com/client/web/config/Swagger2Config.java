@@ -22,7 +22,7 @@ public class Swagger2Config {
                 .build().apiInfo(apiEndPointsInfo());
     }
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Spring Boot REST API")
+        return new ApiInfoBuilder().title("Spring Boot Client REST API")
                 .description("Employee Management REST API")
                 .contact(new Contact("Sebastian Camacho", "www.severetrip.com", "rasdfgh@gmail.com"))
                 .license("Apache 2.0")
