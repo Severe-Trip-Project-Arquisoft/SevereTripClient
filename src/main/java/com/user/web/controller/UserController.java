@@ -1,8 +1,9 @@
 package com.user.web.controller;
 
-import com.user.web.entity.Client;
-import com.user.web.entity.Provider;
-import com.user.web.entity.User;
+import com.user.web.entity.*;
+import com.user.web.entity.auxiliar.ClientRequest;
+import com.user.web.entity.auxiliar.ProviderRequest;
+import com.user.web.entity.auxiliar.UserResponse;
 import com.user.web.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,26 +23,35 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class UserController {
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public String msg(){
         return "ST - USERS SERVICE AVAILABLE";
     }
 
+    @DeleteMapping
+    public String clearDB() {
+        return userService.deleteAll();
+    }
+
     @ApiOperation(value = "See all users.",response = List.class)
     @GetMapping("/all")
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    public ResponseEntity getAllUsers(){
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Get user by internal database ID.",response = User.class)
     @GetMapping("/{generatedId}")
-    public ResponseEntity<User> getUser(@PathVariable(value = "generatedId") String generatedId){
+    public ResponseEntity<UserResponse> getUser(@PathVariable(value = "generatedId") String generatedId){
         User user = userService.getUser(generatedId);
         if (user!= null){
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(user.response());
         }else{
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -49,10 +59,10 @@ public class UserController {
 
     @ApiOperation(value = "Get user by username.",response = User.class)
     @GetMapping("/username/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable(value = "username") String id){
+    public ResponseEntity<UserResponse> getUserByUsername(@PathVariable(value = "username") String id){
         User user = userService.getUserByUsername(id);
         if (user!= null){
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(user.response());
         }else{
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -64,16 +74,16 @@ public class UserController {
         return ResponseEntity.ok(userService.isAvailable(userName));
     }
 
-    @ApiOperation(value = "Create new client",response = String.class)
+    @ApiOperation(value = "Create new client.",response = String.class)
     @PostMapping(path ="/insert/client", consumes = "application/json")
-    public ResponseEntity<String> createClient(@Valid @RequestBody Client newClient){
-        return createUser(newClient);
+    public ResponseEntity<String> createClient(@Valid @RequestBody ClientRequest newClient){
+        return createUser(newClient.createClient());
     }
 
-    @ApiOperation(value = "Create new provider",response = String.class)
+    @ApiOperation(value = "Create new provider.",response = String.class)
     @PostMapping(path ="/insert/provider", consumes = "application/json")
-    public ResponseEntity<String> createProvider(@Valid @RequestBody Provider newProvider) {
-        return createUser(newProvider);
+    public ResponseEntity<String> createProvider(@Valid @RequestBody ProviderRequest newProvider) {
+        return createUser(newProvider.createProvider());
     }
 
     private ResponseEntity<String> createUser(@Valid User newUser){
@@ -82,30 +92,58 @@ public class UserController {
             User created = userService.createUser(newUser);
             return new ResponseEntity<>(created.getId(),HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<>("Username not Available",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username not Available",HttpStatus.NO_CONTENT);
         }
     }
 
 
-    @ApiOperation(value = "Update user by internal ID")
-    @PutMapping(path = "/update/{id}")
-    public void updateUser(@RequestBody @Valid User upUser, @PathVariable(value = "id") String id){
+    @ApiOperation(value = "Update client by internal ID.")
+    @PutMapping(path = "/update/client/{id}")
+    public ResponseEntity updateClient(@RequestBody ClientRequest upUser, @PathVariable(value = "id") String id){
         User user = userService.getUser(id);
-        if (user!= null){
-            userService.updateUser(upUser);
-        }else{
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try{
+            if (user == null) {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } else {
+                Client cli = upUser.createClient();
+                cli.setId(id);
+                userService.updateUser(cli);
+                return new ResponseEntity(HttpStatus.OK);
+            }
+        } catch (Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @ApiOperation(value = "Update provider by internal ID.")
+    @PutMapping(path = "/update/provider/{id}")
+    public ResponseEntity updateProvider(@RequestBody ProviderRequest upUser, @PathVariable(value = "id") String id){
+        User user = userService.getUser(id);
+        try{
+            if (user == null) {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            } else {
+                Provider pro =  upUser.createProvider();
+                pro.setId(id);
+                userService.updateUser(pro);
+                return new ResponseEntity(HttpStatus.OK);
+            }
+        } catch (Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @ApiOperation(value = "Delete user by internal ID")
+
+    @ApiOperation(value = "Delete user by internal ID.")
     @DeleteMapping(path = "/delete/{id}")
-    public void deleteUser(@PathVariable(value = "id") String id){
+    public ResponseEntity deleteUser(@PathVariable(value = "id") String id){
         User user = userService.getUser(id);
         if (user!= null){
             userService.deleteUser(user);
+            return new ResponseEntity(HttpStatus.OK);
         }else{
-            new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

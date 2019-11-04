@@ -20,31 +20,31 @@ public class UserService {
     }
 
     public User getUser(String userId){
-
         return userRepository.getById(userId);
     }
 
     public User getUserByUsername(String userId){
-
         return userRepository.findFirstByUsername(userId);
     }
 
     public User createUser(User newUser){
-
         return userRepository.save(newUser);
     }
 
     public void updateUser(User upUser){
-
         userRepository.save(upUser);
     }
 
     public void deleteUser(User delUser){
-
         userRepository.delete(delUser);
     }
 
     public boolean isAvailable(String username){
         return !userRepository.existsByUsername(username);
+    }
+
+    public String deleteAll() {
+        userRepository.deleteAll();
+        return "DB cleared.";
     }
 }
