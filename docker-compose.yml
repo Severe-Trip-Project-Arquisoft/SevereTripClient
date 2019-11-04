@@ -1,8 +1,8 @@
-version: '2'
+version: '3'
 services:
 
- st-c-mongodb:
-  container_name: st-c-mongodb
+ st-user-mongodb:
+  container_name: st-user-mongodb
   image: mongo
   restart: always
   environment:
@@ -13,16 +13,15 @@ services:
   entrypoint: mongod --bind_ip_all
 #  command: mongod --logpath=/dev/null # --quiet
 
- client:
+ user:
   build: .
   ports:
    - "8080:8080"
   environment:
    SPRING_PROFILES_ACTIVE: uat
-   DATABASE: taCl_db
-   MONGODB_HOST: st-c-mongodb
+   DATABASE: st-user-db
+   MONGODB_HOST: st-user-mongodb
    MONGODB_PORT: 27017
    SERVER_PORT: 8080
-   DATABASE: taCl_db
   links:
    - st-c-mongodb

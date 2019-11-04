@@ -1,4 +1,4 @@
-package com.client.web.config;
+package com.user.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,12 +22,12 @@ public class Swagger2Config {
                 .build().apiInfo(apiEndPointsInfo());
     }
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("Spring Boot Client REST API")
-                .description("Employee Management REST API")
-                .contact(new Contact("Sebastian Camacho", "www.severetrip.com", "rasdfgh@gmail.com"))
+        return new ApiInfoBuilder().title("Spring Boot User REST API")
+                .description("Severe Trip - User Management REST API")
+                .contact(new Contact("Sebastian Camacho", "https://github.com/Severe-Trip-Project-Arquisoft", "vscamachos@unal.edu.co"))
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("1.0.0")
+                .version("2.0.0")
                 .build();
     }
 }
