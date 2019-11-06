@@ -1,4 +1,4 @@
-package com.user.web.config;
+/*package com.user.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class Swagger2Config {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors
-                        .basePackage("com.user.web.controller"))
+                        .basePackage("com.user.web.controller.UserController"))
                 .paths(PathSelectors.regex("/.*"))
                 .build().apiInfo(apiEndPointsInfo());
     }
@@ -30,4 +30,4 @@ public class Swagger2Config {
                 .version("2.0.0")
                 .build();
     }
-}
+}*/
