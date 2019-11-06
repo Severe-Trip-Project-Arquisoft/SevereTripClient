@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api(value="Users Management System", description="Operations pertaining to customer in Users Management System")
+@Api(value="Users Management System",  description="Operations pertaining to customer in Users Management System")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
