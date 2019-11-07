@@ -3,6 +3,7 @@ package com.user.web.entity;
 import com.user.web.entity.auxiliar.ClientResponse;
 import com.user.web.entity.auxiliar.UserResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Document(collection = "user")
 public class Client extends User{

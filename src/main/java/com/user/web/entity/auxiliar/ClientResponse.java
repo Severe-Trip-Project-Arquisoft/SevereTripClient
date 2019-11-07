@@ -2,7 +2,9 @@ package com.user.web.entity.auxiliar;
 
 import com.user.web.entity.Client;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ClientResponse extends UserResponse {
 
@@ -21,7 +23,7 @@ public class ClientResponse extends UserResponse {
                 client.getCity(),
                 client.getCountry(),
                 client.getCellphone(),
-                client.getRol());
+                client.getRole());
         this.localAirport = client.getLocalAirport();
         this.stateProvinceRegion = client.getStateProvinceRegion();
         this.postalCode = client.getPostalCode();
