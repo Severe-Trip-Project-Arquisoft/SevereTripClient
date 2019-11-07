@@ -21,7 +21,7 @@ public class ClientResponse extends UserResponse {
                 client.getCity(),
                 client.getCountry(),
                 client.getCellphone(),
-                client.getRol());
+                client.getRole());
         this.localAirport = client.getLocalAirport();
         this.stateProvinceRegion = client.getStateProvinceRegion();
         this.postalCode = client.getPostalCode();

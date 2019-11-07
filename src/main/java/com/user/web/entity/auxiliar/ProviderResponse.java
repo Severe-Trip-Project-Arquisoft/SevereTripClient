@@ -21,7 +21,7 @@ public class ProviderResponse extends UserResponse {
         provider.getCity(),
         provider.getCountry(),
         provider.getCellphone(),
-        provider.getRol());
+        provider.getRole());
         this.yearsExperience = provider.getYearsExperience();
         this.bankAccount = provider.getBankAccount();
     }
