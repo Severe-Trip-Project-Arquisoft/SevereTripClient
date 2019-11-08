@@ -41,6 +41,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
 
         // Create login token
+        assert credentials != null;
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 credentials.getUsername(),
                 credentials.getPassword(),
@@ -60,10 +61,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // Create JWT Token
         String token = JWT.create()
                 .withSubject(principal.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtPropieties.EXPIRATION_TIME))
-                .sign(HMAC512(JwtPropieties.SECRET.getBytes()));
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
+                .sign(HMAC512(JwtProperties.SECRET.getBytes()));
 
         // Add token in response
-        response.addHeader(JwtPropieties.HEADER_STRING, JwtPropieties.TOKEN_PREFIX +  token);
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX +  token);
     }
 }

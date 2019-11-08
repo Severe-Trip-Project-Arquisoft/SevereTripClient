@@ -1,7 +1,6 @@
 package com.user.web.security;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.user.web.entity.User;
 import com.user.web.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,10 +28,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         // Read the Authorization header, where the JWT token should be
-        String header = request.getHeader(JwtPropieties.HEADER_STRING);
+        String header = request.getHeader(JwtProperties.HEADER_STRING);
 
         // If header does not contain BEARER or is null delegate to Spring impl and exit
-        if (header == null || !header.startsWith(JwtPropieties.TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
@@ -46,12 +45,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private Authentication getUsernamePasswordAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(JwtPropieties.HEADER_STRING)
-                .replace(JwtPropieties.TOKEN_PREFIX,"");
+        String token = request.getHeader(JwtProperties.HEADER_STRING)
+                .replace(JwtProperties.TOKEN_PREFIX,"");
 
         if (token != null) {
             // parse the token and validate it
-            String userName = JWT.require(HMAC512(JwtPropieties.SECRET.getBytes()))
+            String userName = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
                     .build()
                     .verify(token)
                     .getSubject();
@@ -60,7 +59,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (userName != null) {
                 User user = userRepository.findFirstByUsername(userName);
-                UserPrincipal principal = new UserPrincipal(user);
+                UserPrincipal principal;
+                if( user != null) principal = new UserPrincipal(user);
+                else return null;
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
                 return auth;
             }

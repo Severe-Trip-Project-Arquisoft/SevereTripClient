@@ -34,8 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                // remove csrf and state in session because in jwt we do not need them
+        http // remove csrf and state in session because in jwt we do not need them
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -45,7 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // configure access rules
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers("/api/public/admin/*").hasRole("ADMIN")
+                //.antMatchers("/api/public/admin/*").hasRole("ADMIN")
+                .antMatchers("/users/msg").hasRole("CLIENT")
+
                 .anyRequest().authenticated();
     }
 

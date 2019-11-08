@@ -1,13 +1,17 @@
 package com.user.web.config;
 
+import com.user.web.entity.Client;
 import com.user.web.entity.User;
+import com.user.web.entity.auxiliar.ClientRequest;
 import com.user.web.entity.auxiliar.UserResponse;
 import com.user.web.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -24,26 +28,24 @@ public class DBInit implements CommandLineRunner {
     public void run(String... args) {
         // Delete all
         this.userRepository.deleteAll();
-
+        List<User> users = new ArrayList<>();
         // Crete users
-        User admin = new User("admin",
-                "daniel",
-                "pinzon",
-                "daapinzonchunal.edu.co",
-                "calle falsa #123",
-                "bogota",
-                "colombia",
-                "3014016265",
-                "ADMIN",
-                "admin") {
-            @Override
-            public UserResponse response() {
-                return null;
-            }
-        };
-
-        List<User> users = Arrays.asList(admin);
-
+        users.add(new Client(
+                "client",
+                "Nicolai",
+                "Romero",
+                "nicolaiKaiba@gmail.com",
+                "cll 1 sur No.4 -57",
+                "Bogota",
+                "Colombia",
+                "3112009876",
+                "CLIENT",
+                passwordEncoder.encode("123"),
+                "Aeropuerto internacional Jonathan Brando",
+                "Cundinamarca",
+                "11001",
+                new HashSet<>()
+        ));
         // Save to db
         this.userRepository.saveAll(users);
     }
