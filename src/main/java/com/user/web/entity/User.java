@@ -19,6 +19,7 @@ public abstract class User {
 
     abstract public UserResponse response();
 
+
     @Id private String id;
     @NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") private String username;
     @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") private String firstName;
@@ -30,10 +31,10 @@ public abstract class User {
     @NotNull private String cellphone;
     @NotNull private String rol;
     @NonNull private boolean active;
-    @NonNull private String pass;
+    @NonNull private String password;
     private LocalDateTime creationTime;
 
-    public User(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NotNull String rol, @NonNull String pass) {
+    public User(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NotNull String rol, @NonNull String password) {
         this.username = username;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -43,8 +44,8 @@ public abstract class User {
         this.country = country;
         this.cellphone = cellphone;
         this.rol = rol;
-        this.active = false;
-        this.pass = pass;
+        this.active = true;
+        this.password = password;
         this.creationTime = LocalDateTime.now();
     }
 

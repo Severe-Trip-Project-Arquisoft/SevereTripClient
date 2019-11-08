@@ -2,9 +2,10 @@ package com.user.web.entity.auxiliar;
 
 import com.user.web.entity.Provider;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-
 public class ProviderResponse extends UserResponse {
 
 

@@ -31,17 +31,18 @@ public class ProviderRequest {
 
     public Provider createProvider(ProviderRequest this) {
         return new Provider(
-                this.getUsername(),
-                this.getFirstName(),
-                this.getSecondName(),
-                this.getEmail(),
-                this.getAddress(),
-                this.getCity(),
-                this.getCountry(),
-                this.getCellphone(),
-                this.getPassword(),
-                "provider",
-                this.getYearsExperience(),
-                this.getBankAccount());
+                username,
+                firstName,
+                secondName,
+                email,
+                address,
+                city,
+                country,
+                cellphone,
+                address,
+                password,
+                yearsExperience,
+                bankAccount);
+
     }
 }

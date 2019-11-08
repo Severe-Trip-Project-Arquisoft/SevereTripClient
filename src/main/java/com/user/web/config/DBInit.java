@@ -30,20 +30,19 @@ public class DBInit implements CommandLineRunner {
         this.userRepository.deleteAll();
         List<User> users = new ArrayList<>();
         // Crete users
-        users.add(new Client(
-                "client",
+        users.add(new Client("client",
                 "Nicolai",
                 "Romero",
-                "nicolaiKaiba@gmail.com",
-                "cll 1 sur No.4 -57",
-                "Bogota",
+                "anromerom@unal.edu.co",
+                "Calle falsa 123",
+                "Bogotá D.C.",
                 "Colombia",
-                "3112009876",
-                "CLIENT",
+                "31231233252",
+                "client",
                 passwordEncoder.encode("123"),
-                "Aeropuerto internacional Jonathan Brando",
-                "Cundinamarca",
-                "11001",
+                "El dorado",
+                "DC",
+                "1112132",
                 new HashSet<>()
         ));
         // Save to db

@@ -1,8 +1,13 @@
 package com.user.web.entity.auxiliar;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+
 public class UserAuth {
+
     private String username;
     private String password;
+
 
     public String getPassword() {
         return password;
