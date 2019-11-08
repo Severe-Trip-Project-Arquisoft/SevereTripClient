@@ -2,6 +2,7 @@ package com.user.web.entity.auxiliar;
 
 import com.user.web.entity.Provider;
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.validation.constraints.*;
 
@@ -25,6 +26,7 @@ public class ProviderRequest {
     @Min(value = 0, message = "Years of experience must be greater than 0")
     @NotNull private Double yearsExperience;
     @NotBlank private String bankAccount;
+    @NonNull private String password;
 
 
     public Provider createProvider(ProviderRequest this) {
@@ -37,6 +39,7 @@ public class ProviderRequest {
                 this.getCity(),
                 this.getCountry(),
                 this.getCellphone(),
+                this.getPassword(),
                 "provider",
                 this.getYearsExperience(),
                 this.getBankAccount());

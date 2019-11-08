@@ -2,6 +2,8 @@ package com.user.web.entity.auxiliar;
 
 import com.user.web.entity.Client;
 import lombok.Data;
+import lombok.NonNull;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -23,12 +25,13 @@ public class ClientRequest {
     @NotNull private String country;
     @NotNull private String cellphone;
     @NotNull private String localAirport;
-    @NotNull private  String stateProvinceRegion;
-    @NotNull private  String postalCode;
+    @NotNull private String stateProvinceRegion;
+    @NotNull private String postalCode;
+    @NonNull private String password;
     public Client createClient() {
         return new Client(
             this.getUsername(),
-            this.getFirstName(), this.getSecondName(), this.getEmail(), this.getAddress(), this.getCity(), this.getCountry(), this.getCellphone(), "client",
+            this.getFirstName(), this.getSecondName(), this.getEmail(), this.getAddress(), this.getCity(), this.getCountry(), this.getCellphone(), this.getPassword(), "client",
             this.getLocalAirport(),
             this.getStateProvinceRegion(),
             this.getPostalCode(),

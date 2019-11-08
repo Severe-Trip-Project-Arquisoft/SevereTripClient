@@ -29,11 +29,11 @@ public abstract class User {
     @NotNull private String country;
     @NotNull private String cellphone;
     @NotNull private String rol;
-    @NonNull private int active;
+    @NonNull private boolean active;
     @NonNull private String password;
     private LocalDateTime creationTime;
 
-    public User(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NotNull String rol) {
+    public User(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NotNull String rol, @NonNull String pass) {
         this.username = username;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -43,7 +43,8 @@ public abstract class User {
         this.country = country;
         this.cellphone = cellphone;
         this.rol = rol;
-        this.active = 1;
+        this.active = false;
+        this.password = pass;
         this.creationTime = LocalDateTime.now();
     }
 
@@ -94,7 +95,7 @@ public abstract class User {
         this.rol = rol;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -146,7 +147,7 @@ public abstract class User {
         return rol;
     }
 
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 

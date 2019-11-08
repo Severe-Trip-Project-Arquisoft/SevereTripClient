@@ -3,6 +3,7 @@ package com.user.web.entity;
 import com.user.web.entity.auxiliar.ClientResponse;
 import com.user.web.entity.auxiliar.UserResponse;
 import lombok.Data;
+import lombok.NonNull;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
@@ -24,8 +25,8 @@ public class Client extends User{
     private  String postalCode;
     private HashSet<String> favorites;
 
-    public Client(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NotNull String rol, @NotNull String localAirport, @NotNull String stateProvinceRegion, @NotNull String postalCode, HashSet<String> favorites) {
-        super(username, firstName, secondName, email, address, city, country, cellphone, rol);
+    public Client(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NonNull String pass, @NotNull String rol, @NotNull String localAirport, @NotNull String stateProvinceRegion, @NotNull String postalCode, HashSet<String> favorites) {
+        super(username, firstName, secondName, email, address, city, country, cellphone, pass, rol);
         this.localAirport = localAirport;
         this.stateProvinceRegion = stateProvinceRegion;
         this.postalCode = postalCode;
