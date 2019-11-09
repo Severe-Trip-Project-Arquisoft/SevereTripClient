@@ -19,7 +19,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class FavoriteController {
 
-    FavoriteService favoriteService;
+    private FavoriteService favoriteService;
 
     @Autowired
     public FavoriteController(FavoriteService favoriteService) {

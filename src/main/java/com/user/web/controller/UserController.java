@@ -35,11 +35,6 @@ public class UserController {
         return "ST - USERS SERVICE AVAILABLE";
     }
 
-    @DeleteMapping
-    public String clearDB() {
-        return userService.deleteAll();
-    }
-
     @ApiOperation(value = "See all users.",response = List.class)
     @GetMapping("/all")
     public ResponseEntity getAllUsers(){
@@ -131,19 +126,6 @@ public class UserController {
             }
         } catch (Exception e){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-
-    @ApiOperation(value = "Delete user by internal ID.")
-    @DeleteMapping(path = "/delete/{id}")
-    public ResponseEntity deleteUser(@PathVariable(value = "id") String id){
-        User user = userService.getUser(id);
-        if (user!= null){
-            userService.deleteUser(user);
-            return new ResponseEntity(HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

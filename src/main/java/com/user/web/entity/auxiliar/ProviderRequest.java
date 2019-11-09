@@ -2,14 +2,17 @@ package com.user.web.entity.auxiliar;
 
 import com.user.web.entity.Provider;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.*;
 
 
 @Data
+@NoArgsConstructor
 public class ProviderRequest {
-
+    private static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Size(min = 1, max = 30, message = "Username must be between 1 and 30 characters")
     @NotNull private String username;
@@ -26,7 +29,7 @@ public class ProviderRequest {
     @Min(value = 0, message = "Years of experience must be greater than 0")
     @NotNull private Double yearsExperience;
     @NotBlank private String bankAccount;
-    @NonNull private String password;
+    @NotNull  private String password;
 
 
     public Provider createProvider(ProviderRequest this) {
@@ -39,10 +42,11 @@ public class ProviderRequest {
                 city,
                 country,
                 cellphone,
-                address,
-                password,
+                "PROVIDER",
+                passwordEncoder.encode(password),
                 yearsExperience,
-                bankAccount);
+                bankAccount
+            );
 
     }
 }

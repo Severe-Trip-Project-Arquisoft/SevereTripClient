@@ -35,12 +35,12 @@ public class Client extends User{
         this.favorites = favorites;
     }*/
 
-    public Client(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NotNull String rol, @NonNull String password, @NotNull String localAirport, @NotNull String stateProvinceRegion, @NotNull String postalCode, HashSet<String> favorites) {
+    public Client(@NotNull @Size(min = 1, max = 30, message = "userName must be between 1 and 30 characters") String username, @NotNull @Size(min = 1, max = 128, message = "firstName must be between 1 and 128 characters") String firstName, @NotEmpty @Size(min = 1, max = 128, message = "secondName must be between 1 and 128 characters") String secondName, @Email @NotNull String email, @NotNull String address, @NotNull String city, @NotNull String country, @NotNull String cellphone, @NotNull String rol, @NonNull String password, @NotNull String localAirport, @NotNull String stateProvinceRegion, @NotNull String postalCode) {
         super(username, firstName, secondName, email, address, city, country, cellphone, rol, password);
         this.localAirport = localAirport;
         this.stateProvinceRegion = stateProvinceRegion;
         this.postalCode = postalCode;
-        this.favorites = favorites;
+        this.favorites = new HashSet<>();
     }
 
     public boolean addFavorite(String postId) {

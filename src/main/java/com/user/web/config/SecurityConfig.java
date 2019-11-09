@@ -43,10 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
                 .authorizeRequests()
                 // configure access rules
+                .antMatchers("/users/available/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                //.antMatchers("/api/public/admin/*").hasRole("ADMIN")
-                .antMatchers("/users/msg").hasRole("CLIENT")
+                .antMatchers(HttpMethod.POST, "/users/insert/**").permitAll()
 
+                .antMatchers("/users/all").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/update/client/**").hasRole("CLIENT")
+                .antMatchers(HttpMethod.PUT, "/users/update/provider/**").hasRole("PROVIDER")
+                .antMatchers("/favorites/**").hasRole("CLIENT")
                 .anyRequest().authenticated();
     }
 

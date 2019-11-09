@@ -2,7 +2,10 @@ package com.user.web.entity.auxiliar;
 
 import com.user.web.entity.Client;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -11,7 +14,12 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 
 @Data
+@NoArgsConstructor
 public class ClientRequest {
+
+
+    private static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
     @Size(min = 1, max = 30, message = "Username must be between 1 and 30 characters")
     @NotNull private String username;
@@ -30,11 +38,19 @@ public class ClientRequest {
     @NonNull private String password;
     public Client createClient() {
         return new Client(
-            this.getUsername(),
-            this.getFirstName(), this.getSecondName(), this.getEmail(), this.getAddress(), this.getCity(), this.getCountry(), this.getCellphone(), this.getPassword(), "client",
-            this.getLocalAirport(),
-            this.getStateProvinceRegion(),
-            this.getPostalCode(),
-            new HashSet<>());
+                username,
+                firstName,
+                secondName,
+                email,
+                address,
+                city,
+                country,
+                cellphone,
+                "CLIENT",
+                passwordEncoder.encode(password),
+                localAirport,
+                stateProvinceRegion,
+                postalCode
+        );
     }
 }
