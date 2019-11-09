@@ -44,6 +44,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
 
         // Create login token
+        assert credentials != null;
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 credentials.getUsername(),
                 credentials.getPassword(),
