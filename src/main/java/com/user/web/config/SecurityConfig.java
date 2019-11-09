@@ -32,6 +32,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /*@Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .ldapAuthentication()
+                .contextSource()
+                .url("ldap://18.189.112.108:389/dc=severetrip,dc=unal,dc=edu,dc=co")
+                .managerDn("cn=admin,dc=severetrip,dc=unal,dc=edu,dc=co")
+                .managerPassword("admin")
+                .and()
+                .userDnPatterns("cn={0},ou=severetrip")
+                .userSearchBase("ou=severetrip");
+    }*/
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http // remove csrf and state in session because in jwt we do not need them
