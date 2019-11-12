@@ -59,8 +59,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         // Grab principal
-        UserPrincipal principal = (UserPrincipal) authResult.getPrincipal();
-        //LdapUserDetailsImpl principal = (LdapUserDetailsImpl) authResult.getPrincipal();
+        //UserPrincipal principal = (UserPrincipal) authResult.getPrincipal();
+        LdapUserDetailsImpl principal = (LdapUserDetailsImpl) authResult.getPrincipal();
 
         // Create JWT Token
         String token = JWT.create()
