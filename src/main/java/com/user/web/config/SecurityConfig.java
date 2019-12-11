@@ -32,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userRepository = userRepository;
     }
 
-    /*@Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
-    }*/
+    }
 
-    @Override
+    /*@Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .ldapAuthentication()
@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .userDnPatterns("cn={0},ou=severetrip")
                 .userSearchBase("ou=severetrip");
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
